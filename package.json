@@ -1,0 +1,9 @@
+{
+  "name": "final-lumina-site",
+  "private": true,
+  "scripts": {
+    "dev": "npm run dev --prefix lumina-web",
+    "build": "npm run build --prefix lumina-web",
+    "preview": "npm run preview --prefix lumina-web"
+  }
+}
