@@ -1,7 +1,7 @@
 import './App.css'
 
 import luminaLogo from './assets/figma/lumina-logo.png'
-import luminaDevice from './assets/figma/lumina-device.jpg'
+import luminaDevice from './assets/figma/hardwareImage.png'
 import phoneWelcome from './assets/figma/phone-map-overview.png'
 import phoneDocuments from './assets/figma/phone-home.png'
 import phoneProfile from './assets/figma/nfc-chip.png'
@@ -9,6 +9,8 @@ import phoneRights from './assets/figma/phone-documents.png'
 import teamGiovana from './assets/figma/team-giovana.png'
 import teamRodrigo from './assets/figma/team-rodrigo.png'
 import teamIsadora from './assets/figma/team-isadora.png'
+import starImg from './assets/figma/Star 21.png'
+import phoneMockup from './assets/figma/NFC 6.png'
 
 const navItems = [
   { label: 'Home', href: '#home' },
@@ -53,7 +55,7 @@ const features = [
 const appScreens = [
   { src: phoneProfile, alt: 'Tela de localização em tempo real', label: 'Localização em tempo real' },
   { src: phoneDocuments, alt: 'Tela de documentos e informações', label: 'Documentos e informações' },
-  { src: phoneWelcome, alt: 'Tela NFC do Lumina', label: 'NFC' },
+  { src: phoneMockup, alt: 'Tela NFC do Lumina', label: 'NFC' },
   { src: phoneRights, alt: 'Tela de leis e direitos', label: 'Leis e Direitos' },
 ]
 
@@ -94,38 +96,86 @@ const teamMembers = [
     role: 'UX/UI Designer',
     image: teamGiovana,
     description: 'Apaixonada por criar soluções que impactam positivamente a vida das pessoas.',
+    linkedin: 'https://www.linkedin.com/in/giovanahrebello/',
   },
   {
     name: 'Rodrigo Sandler',
     role: 'Desenvolvedor',
     image: teamRodrigo,
     description: 'Especialista em construir dispositivos físicos discretos, eficientes e confortáveis.',
+    linkedin: 'https://www.linkedin.com/in/rodrigo-sandler-1945a9220/',
   },
   {
     name: 'Isadora Guerra',
     role: 'Desenvolvedora',
     image: teamIsadora,
     description: 'Focado em desenvolver tecnologia acessível, segura e com propósito real.',
+    linkedin: 'https://www.linkedin.com/in/isadoraferreiraguerra/',
   },
 ]
 
-const starPositions = [
-  ['8%', '28%'],
-  ['12%', '18%'],
-  ['14%', '58%'],
-  ['19%', '74%'],
-  ['24%', '34%'],
-  ['31%', '65%'],
-  ['38%', '25%'],
-  ['44%', '76%'],
-  ['49%', '47%'],
-  ['56%', '68%'],
-  ['61%', '33%'],
-  ['66%', '72%'],
-  ['73%', '39%'],
-  ['79%', '69%'],
-  ['84%', '29%'],
-  ['89%', '76%'],
+const starData = [
+  { top: '2%', left: '45%', rotate: 15, size: 12 },
+  { top: '4%', left: '15%', rotate: 12, size: 14 },
+  { top: '6%', left: '78%', rotate: 85, size: 16 },
+  { top: '8%', left: '28%', rotate: 0, size: 18 },
+  { top: '10%', left: '92%', rotate: 30, size: 14 },
+  { top: '12%', left: '18%', rotate: 25, size: 14 },
+  { top: '14%', left: '58%', rotate: 45, size: 20 },
+  { top: '15%', left: '3%', rotate: 60, size: 16 },
+  { top: '17%', left: '85%', rotate: 80, size: 14 },
+  { top: '19%', left: '74%', rotate: 10, size: 16 },
+  { top: '21%', left: '48%', rotate: 75, size: 18 },
+  { top: '22%', left: '10%', rotate: 35, size: 16 },
+  { top: '24%', left: '34%', rotate: 60, size: 12 },
+  { top: '26%', left: '68%', rotate: 5, size: 20 },
+  { top: '28%', left: '88%', rotate: 15, size: 18 },
+  { top: '29%', left: '22%', rotate: 40, size: 14 },
+  { top: '31%', left: '65%', rotate: 30, size: 18 },
+  { top: '33%', left: '5%', rotate: 55, size: 16 },
+  { top: '34%', left: '42%', rotate: 85, size: 14 },
+  { top: '36%', left: '82%', rotate: 20, size: 18 },
+  { top: '38%', left: '25%', rotate: 75, size: 14 },
+  { top: '39%', left: '56%', rotate: 65, size: 12 },
+  { top: '41%', left: '8%', rotate: 20, size: 16 },
+  { top: '42%', left: '95%', rotate: 10, size: 14 },
+  { top: '44%', left: '76%', rotate: 15, size: 22 },
+  { top: '45%', left: '32%', rotate: 80, size: 18 },
+  { top: '47%', left: '92%', rotate: 40, size: 14 },
+  { top: '49%', left: '47%', rotate: 50, size: 16 },
+  { top: '51%', left: '15%', rotate: 35, size: 12 },
+  { top: '53%', left: '22%', rotate: 65, size: 18 },
+  { top: '55%', left: '85%', rotate: 25, size: 16 },
+  { top: '56%', left: '68%', rotate: 0, size: 14 },
+  { top: '58%', left: '45%', rotate: 45, size: 20 },
+  { top: '59%', left: '12%', rotate: 55, size: 16 },
+  { top: '61%', left: '33%', rotate: 35, size: 18 },
+  { top: '62%', left: '58%', rotate: 15, size: 14 },
+  { top: '64%', left: '86%', rotate: 25, size: 20 },
+  { top: '66%', left: '72%', rotate: 70, size: 12 },
+  { top: '67%', left: '25%', rotate: 50, size: 18 },
+  { top: '69%', left: '52%', rotate: 10, size: 14 },
+  { top: '71%', left: '8%', rotate: 85, size: 16 },
+  { top: '73%', left: '39%', rotate: 20, size: 16 },
+  { top: '74%', left: '88%', rotate: 60, size: 14 },
+  { top: '76%', left: '15%', rotate: 80, size: 18 },
+  { top: '78%', left: '48%', rotate: 5, size: 12 },
+  { top: '79%', left: '69%', rotate: 55, size: 20 },
+  { top: '81%', left: '28%', rotate: 30, size: 16 },
+  { top: '82%', left: '90%', rotate: 30, size: 14 },
+  { top: '84%', left: '29%', rotate: 40, size: 14 },
+  { top: '85%', left: '60%', rotate: 75, size: 18 },
+  { top: '87%', left: '48%', rotate: 65, size: 16 },
+  { top: '88%', left: '8%', rotate: 15, size: 14 },
+  { top: '89%', left: '76%', rotate: 5, size: 18 },
+  { top: '91%', left: '85%', rotate: 45, size: 16 },
+  { top: '92%', left: '18%', rotate: 45, size: 20 },
+  { top: '94%', left: '52%', rotate: 80, size: 12 },
+  { top: '95%', left: '62%', rotate: 15, size: 14 },
+  { top: '96%', left: '25%', rotate: 35, size: 18 },
+  { top: '97%', left: '82%', rotate: 75, size: 16 },
+  { top: '98%', left: '38%', rotate: 35, size: 18 },
+  { top: '99%', left: '72%', rotate: 55, size: 14 },
 ]
 
 function App() {
@@ -137,8 +187,20 @@ function App() {
       <div className="shape shape--bottom-two" aria-hidden />
 
       <div className="site-stars" aria-hidden>
-        {starPositions.map(([top, left]) => (
-          <span key={`${top}-${left}`} className="site-star" style={{ top, left }} />
+        {starData.map((star, i) => (
+          <img
+            key={i}
+            className="site-star"
+            src={starImg}
+            alt=""
+            style={{
+              top: star.top,
+              left: star.left,
+              width: star.size,
+              height: star.size,
+              transform: `rotate(${star.rotate}deg)`,
+            }}
+          />
         ))}
       </div>
 
@@ -314,12 +376,21 @@ function App() {
 
             <div className="team-grid">
               {teamMembers.map((member) => (
-                <article className="person-card" key={member.name}>
-                  <img src={member.image} alt={member.name} />
-                  <h3>{member.name}</h3>
-                  <p className="person-card__role">{member.role}</p>
-                  <p>{member.description}</p>
-                </article>
+                <a
+                  key={member.name}
+                  className="person-card__link"
+                  href={member.linkedin}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label={`LinkedIn de ${member.name}`}
+                >
+                  <article className="person-card">
+                    <img src={member.image} alt={member.name} />
+                    <h3>{member.name}</h3>
+                    <p className="person-card__role">{member.role}</p>
+                    <p>{member.description}</p>
+                  </article>
+                </a>
               ))}
             </div>
 
@@ -337,6 +408,10 @@ function App() {
           </div>
         </section>
       </main>
+
+      <footer className="site-footer">
+        <p>&copy; {new Date().getFullYear()} Lumina. Todos os direitos reservados.</p>
+      </footer>
     </div>
   )
 }
