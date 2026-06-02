@@ -358,7 +358,6 @@ function App() {
             <div className="pricing-grid">
               {plans.map((plan) => (
                 <article className={`price-card price-card--${plan.tone}`} key={plan.title}>
-                  {'highlight' in plan && <span className="price-card__highlight">{plan.highlight}</span>}
                   <h3>{plan.title}</h3>
                   <p className="price-card__price">
                     {plan.price}
