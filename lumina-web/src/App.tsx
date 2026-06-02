@@ -416,7 +416,7 @@ function App() {
         <section className="section terms-section" id="termos">
           <div className="section__inner terms-section__inner">
             <h2>Baixe nossos Termos e Condições</h2>
-            <a href="#termos">Link para termos →</a>
+            <a href="https://sandlerrodrigo.github.io/lumina-terms-and-conditions/">Link para termos →</a>
           </div>
         </section>
       </main>
