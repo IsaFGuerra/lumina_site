@@ -81,6 +81,8 @@ const plans = [
     ],
     button: 'Entrar na lista',
     buttonClass: 'price-card__button price-card__button--primary',
+    href: 'https://wa.me/5551996511539?text=Ol%C3%A1!%20Acessei%20o%20site%20do%20Lumina%20e%20achei%20a%20proposta%20incr%C3%ADvel.%20Gostaria%20de%20garantir%20minha%20vaga%20na%20lista%20de%20lan%C3%A7amento%20e%20saber%20mais%20detalhes%20sobre%20quando%20o%20dispositivo%20estar%C3%A1%20dispon%C3%ADvel.',
+    target: '_blank',
   },
   {
     title: 'Renovação',
@@ -95,6 +97,7 @@ const plans = [
     ],
     button: 'Disponível após o primeiro ano',
     buttonClass: 'price-card__button',
+    href: '#precos',
   },
 ]
 
@@ -226,7 +229,12 @@ function App() {
           ))}
         </nav>
 
-        <a className="pill-button navbar__cta" href="#precos">
+        <a
+          className="pill-button navbar__cta"
+          href="https://wa.me/5551996511539?text=Ol%C3%A1!%20Acessei%20o%20site%20do%20Lumina%20e%20achei%20a%20proposta%20incr%C3%ADvel.%20Gostaria%20de%20garantir%20minha%20vaga%20na%20lista%20de%20lan%C3%A7amento%20e%20saber%20mais%20detalhes%20sobre%20quando%20o%20dispositivo%20estar%C3%A1%20dispon%C3%ADvel."
+          target="_blank"
+          rel="noopener noreferrer"
+        >
           Entrar na lista
         </a>
       </header>
@@ -241,7 +249,12 @@ function App() {
                 Uma solução pensada para apoiar responsáveis por pessoas autistas, com mais segurança,
                 autonomia e conexão no dia a dia.
               </p>
-              <a className="pill-button" href="#precos">
+              <a
+                className="pill-button"
+                href="https://wa.me/5551996511539?text=Ol%C3%A1!%20Acessei%20o%20site%20do%20Lumina%20e%20achei%20a%20proposta%20incr%C3%ADvel.%20Gostaria%20de%20garantir%20minha%20vaga%20na%20lista%20de%20lan%C3%A7amento%20e%20saber%20mais%20detalhes%20sobre%20quando%20o%20dispositivo%20estar%C3%A1%20dispon%C3%ADvel."
+                target="_blank"
+                rel="noopener noreferrer"
+              >
                 Entrar na lista
               </a>
             </div>
@@ -369,7 +382,14 @@ function App() {
                       <li key={item}>{item}</li>
                     ))}
                   </ul>
-                  <a href="#precos" className={plan.buttonClass}>{plan.button}</a>
+                  <a
+                    href={plan.href}
+                    className={plan.buttonClass}
+                    target={plan.target}
+                    rel={plan.target === '_blank' ? 'noopener noreferrer' : undefined}
+                  >
+                    {plan.button}
+                  </a>
                 </article>
               ))}
             </div>
