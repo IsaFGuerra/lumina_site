@@ -254,14 +254,14 @@
   left: 23%;
   top: 10px;
   --rotation: -11deg;
-  z-index: 2;
+  z-index: 3;
 }
 
 .phone-fan__item--front-right {
   left: 45%;
   top: 0;
   --rotation: 11deg;
-  z-index: 3;
+  z-index: 2;
 }
 
 .phone-fan__item--back-right {
@@ -437,35 +437,36 @@
 
 .feature-list {
   display: grid;
-  gap: 18px;
-  margin: 28px 0 0;
+  gap: 24px;
+  margin: 32px 0 0;
   padding: 0;
   list-style: none;
 }
 
 .feature-list li {
-  position: relative;
-  min-height: 34px;
-  padding-left: 48px;
   display: flex;
   align-items: center;
-  color: var(--muted);
+  gap: 16px;
+  color: var(--ink);
   font-size: 16px;
   font-weight: 600;
 }
 
-.feature-list li::before {
-  position: absolute;
-  left: 0;
-  width: 34px;
-  height: 34px;
-  display: grid;
-  place-items: center;
-  content: '✓';
-  border-radius: 10px;
-  background: var(--blue);
-  color: #2f5f9b;
-  font-weight: 800;
+.feature-icon {
+  width: 48px;
+  height: 48px;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 14px;
+  background: #a9d0f5;
+}
+
+.feature-icon img {
+  width: 20px;
+  height: 20px;
+  object-fit: contain;
 }
 
 .app-section {
@@ -593,6 +594,10 @@
   list-style: none;
 }
 
+.price-card__price + ul {
+  margin-top: 28px;
+}
+
 .price-card li {
   position: relative;
   padding-left: 28px;
@@ -622,7 +627,7 @@
   color: #b948b1;
 }
 
-.price-card a {
+.price-card__button {
   display: flex;
   min-height: 52px;
   align-items: center;
@@ -635,6 +640,23 @@
   font-weight: 700;
   text-align: center;
   text-decoration: none;
+}
+
+.price-card__button--primary {
+  background: var(--blue);
+  color: var(--ink);
+  border-radius: 999px;
+  box-shadow: 0 10px 22px rgba(116, 167, 235, 0.2);
+  transition:
+    transform 160ms ease,
+    box-shadow 160ms ease,
+    background-color 160ms ease;
+}
+
+.price-card__button--primary:hover {
+  background: #bfd8f3;
+  box-shadow: 0 14px 30px rgba(116, 167, 235, 0.28);
+  transform: translateY(-1px);
 }
 
 .team-section {

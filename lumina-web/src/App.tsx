@@ -4,13 +4,19 @@ import luminaLogo from './assets/figma/lumina-logo.png'
 import luminaDevice from './assets/figma/hardwareImage.png'
 import phoneWelcome from './assets/figma/phone-map-overview.png'
 import phoneDocuments from './assets/figma/phone-home.png'
-import phoneProfile from './assets/figma/nfc-chip.png'
+import phoneMap from './assets/figma/phone-rights.png'
 import phoneRights from './assets/figma/phone-documents.png'
 import teamGiovana from './assets/figma/team-giovana.png'
 import teamRodrigo from './assets/figma/team-rodrigo.png'
 import teamIsadora from './assets/figma/team-isadora.png'
 import starImg from './assets/figma/Star 21.png'
 import phoneMockup from './assets/figma/NFC 6.png'
+import iconFolha from './assets/figma/Folha.png'
+import iconPhone from './assets/figma/Phone.png'
+import iconWarning from './assets/figma/Warning.png'
+
+
+
 
 const navItems = [
   { label: 'Home', href: '#home' },
@@ -23,9 +29,9 @@ const navItems = [
 
 const heroPhones = [
   { src: phoneDocuments, alt: 'Tela de documentos do app Lumina', className: 'phone-fan__item phone-fan__item--back-left' },
-  { src: phoneWelcome, alt: 'Tela de boas-vindas do app Lumina', className: 'phone-fan__item phone-fan__item--front-left' },
-  { src: phoneProfile, alt: 'Tela de perfil do app Lumina', className: 'phone-fan__item phone-fan__item--front-right' },
-  { src: phoneRights, alt: 'Tela de leis e direitos do app Lumina', className: 'phone-fan__item phone-fan__item--back-right' },
+  { src: phoneWelcome, alt: 'Tela de boas-vindas do app Lumina', className: 'phone-fan__item phone-fan__item--back-right' }, 
+  { src: phoneMap, alt: 'Tela de perfil do app Lumina', className: 'phone-fan__item phone-fan__item--front-left' },
+  { src: phoneRights, alt: 'Tela de leis e direitos do app Lumina', className: 'phone-fan__item phone-fan__item--front-right' }, 
 ]
 
 const steps = [
@@ -47,13 +53,13 @@ const steps = [
 ]
 
 const features = [
-  'Leve e confortável de usar',
-  'Conectado em tempo real com o app',
-  'Pensado para situações de emergência',
+  { text: 'Leve e confortável de usar', icon: iconFolha },
+  { text: 'Conexão em tempo real com o app', icon: iconPhone },
+  { text: 'Pensado para situações de emergência', icon: iconWarning },
 ]
 
 const appScreens = [
-  { src: phoneProfile, alt: 'Tela de localização em tempo real', label: 'Localização em tempo real' },
+  { src: phoneMap, alt: 'Tela de localização em tempo real', label: 'Localização em tempo real' },
   { src: phoneDocuments, alt: 'Tela de documentos e informações', label: 'Documentos e informações' },
   { src: phoneMockup, alt: 'Tela NFC do Lumina', label: 'NFC' },
   { src: phoneRights, alt: 'Tela de leis e direitos', label: 'Leis e Direitos' },
@@ -61,32 +67,34 @@ const appScreens = [
 
 const plans = [
   {
-    title: 'Compra Inicial',
-    price: 'R$29,99',
-    billing: 'Cobrança de 299,99 por ano',
+    title: 'Ativação + Dispositivo',
+    price: 'R$299,99',
+    priceSuffix: ' à vista',
+    billing: 'ou 12x de R$29,99',
     tone: 'blue',
-    highlight: 'Mais escolhido',
     items: [
-      'Ativação completa do sistema',
+      'Dispositivo Lumina',
+      'Assinatura gratuita por 1 ano',
+      'Acesso ao aplicativo completo',
       'Segurança desde o primeiro dia',
-      'Acesso ao aplicativo',
-      '1 ano de garantia',
       'Cobertura para defeitos de fábrica',
-      'Cobertura para roubo (mediante apresentação de BO)',
     ],
-    button: 'Em breve disponível via WhatsApp',
+    button: 'Entrar na lista',
+    buttonClass: 'price-card__button price-card__button--primary',
   },
   {
     title: 'Renovação',
     price: 'R$19,99',
-    billing: 'Cobrança de 199,99 por ano',
+    priceSuffix: '/mês',
+    billing: '',
     tone: 'pink',
     items: [
-      'Ilê',
-      'Cobertura contra roubo',
-      'Continuidade da proteção do dispositivo',
+      'Acesso a todas funcionalidades',
+      'Cancele quando quiser',
+      'Renovação simples e automática',
     ],
     button: 'Disponível após o primeiro ano',
+    buttonClass: 'price-card__button',
   },
 ]
 
@@ -307,7 +315,12 @@ function App() {
               </p>
               <ul className="feature-list">
                 {features.map((feature) => (
-                  <li key={feature}>{feature}</li>
+                  <li key={feature.text}>
+                    <div className="feature-icon">
+                      <img src={feature.icon} alt="" />
+                    </div>
+                    {feature.text}
+                  </li>
                 ))}
               </ul>
             </div>
@@ -349,15 +362,15 @@ function App() {
                   <h3>{plan.title}</h3>
                   <p className="price-card__price">
                     {plan.price}
-                    <span>/mês</span>
+                    <span>{plan.priceSuffix}</span>
                   </p>
-                  <p className="price-card__billing">{plan.billing}</p>
+                  {plan.billing && <p className="price-card__billing">{plan.billing}</p>}
                   <ul>
                     {plan.items.map((item) => (
                       <li key={item}>{item}</li>
                     ))}
                   </ul>
-                  <a href="#precos">{plan.button}</a>
+                  <a href="#precos" className={plan.buttonClass}>{plan.button}</a>
                 </article>
               ))}
             </div>
