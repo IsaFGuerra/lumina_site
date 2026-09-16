@@ -260,9 +260,20 @@ const STORAGE_KEY = 'lumina.lang'
 
 const isLang = (value: unknown): value is Lang => LANGS.includes(value as Lang)
 
-export function detectLang(stored: string | null, navigatorLang: string | undefined): Lang {
+/**
+ * Escolha manual salva vence sempre. Sem escolha salva, varre as preferencias
+ * do navegador na ordem e adota a primeira que o site suporta ('pt-BR' -> 'pt').
+ * Nenhuma delas suportada -> ingles.
+ */
+export function detectLang(stored: string | null, preferred: readonly string[]): Lang {
   if (isLang(stored)) return stored
-  return navigatorLang?.toLowerCase().startsWith('pt') ? 'pt' : 'en'
+
+  for (const tag of preferred) {
+    const base = tag.toLowerCase().split('-')[0]
+    if (isLang(base)) return base
+  }
+
+  return 'en'
 }
 
 export function readLang(): Lang {
@@ -272,7 +283,7 @@ export function readLang(): Lang {
   } catch {
     // localStorage bloqueado (modo privado): cai na detecção do navegador
   }
-  return detectLang(stored, navigator.language)
+  return detectLang(stored, navigator.languages ?? [navigator.language])
 }
 
 export function storeLang(lang: Lang) {
