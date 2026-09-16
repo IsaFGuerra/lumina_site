@@ -382,12 +382,12 @@
 
 .step-card {
   position: relative;
-  min-height: 346px;
-  padding: 10px 56px 28px 10px;
+  min-height: 240px;
+  padding: 32px;
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  gap: 40px;
+  justify-content: flex-start;
+  gap: 20px;
   background: #fff;
   border-radius: 16px;
   box-shadow:
@@ -402,6 +402,8 @@
 }
 
 .step-card h3 {
+  /* duas linhas reservadas: mantem os paragrafos alinhados quando um titulo quebra */
+  min-height: 2.4em;
   margin: 0 0 8px;
   color: #101828;
   font-size: 24px;
