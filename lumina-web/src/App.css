@@ -137,6 +137,45 @@
   color: var(--ink);
 }
 
+.lang-switch {
+  display: inline-flex;
+  gap: 2px;
+  padding: 3px;
+  border-radius: 999px;
+  background: rgba(174, 203, 235, 0.18);
+  border: 1px solid var(--line);
+}
+
+.lang-switch__option {
+  padding: 5px 11px;
+  border: 0;
+  border-radius: 999px;
+  background: transparent;
+  color: var(--muted);
+  font-family: inherit;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  cursor: pointer;
+  transition:
+    color 160ms ease,
+    background-color 160ms ease;
+}
+
+.lang-switch__option:hover {
+  color: var(--ink);
+}
+
+.lang-switch__option[aria-pressed='true'] {
+  background: var(--blue);
+  color: var(--ink);
+}
+
+.lang-switch__option:focus-visible {
+  outline: 2px solid var(--blue-strong);
+  outline-offset: 2px;
+}
+
 .pill-button {
   display: inline-flex;
   align-items: center;
@@ -915,6 +954,11 @@
     min-height: 36px;
     padding: 8px 12px;
     font-size: 12px;
+  }
+
+  .lang-switch__option {
+    padding: 4px 9px;
+    font-size: 11px;
   }
 
   .hero {

@@ -1,4 +1,7 @@
+import { useEffect, useState } from 'react'
+
 import './App.css'
+import { LANGS, copy, readLang, storeLang, whatsappLink } from './copy'
 
 import luminaLogo from './assets/figma/lumina-logo.png'
 import luminaDevice from './assets/figma/hardwareImage.png'
@@ -18,109 +21,48 @@ import iconWarning from './assets/figma/Warning.png'
 
 
 
-const navItems = [
-  { label: 'Home', href: '#home' },
-  { label: 'Sobre', href: '#sobre' },
-  { label: 'Funcionalidades', href: '#funcionalidades' },
-  { label: 'Preços', href: '#precos' },
-  { label: 'Contato', href: '#criadores' },
-  { label: 'Termos', href: '#termos' },
-]
-
 const heroPhones = [
-  { src: phoneDocuments, alt: 'Tela de documentos do app Lumina', className: 'phone-fan__item phone-fan__item--back-left' },
-  { src: phoneWelcome, alt: 'Tela de boas-vindas do app Lumina', className: 'phone-fan__item phone-fan__item--back-right' }, 
-  { src: phoneMap, alt: 'Tela de perfil do app Lumina', className: 'phone-fan__item phone-fan__item--front-left' },
-  { src: phoneRights, alt: 'Tela de leis e direitos do app Lumina', className: 'phone-fan__item phone-fan__item--front-right' }, 
+  { src: phoneDocuments, className: 'phone-fan__item phone-fan__item--back-left' },
+  { src: phoneWelcome, className: 'phone-fan__item phone-fan__item--back-right' },
+  { src: phoneMap, className: 'phone-fan__item phone-fan__item--front-left' },
+  { src: phoneRights, className: 'phone-fan__item phone-fan__item--front-right' },
 ]
 
-const steps = [
-  {
-    number: '01',
-    title: 'Configure o dispositivo',
-    text: 'Conecte o dispositivo ao app e cadastre a criança com foto e informações básicas.',
-  },
-  {
-    number: '02',
-    title: 'Defina a área segura',
-    text: 'Desenhe no mapa a região onde a criança pode circular com segurança ou busque endereços específicos.',
-  },
-  {
-    number: '03',
-    title: 'Acompanhe e proteja em tempo real',
-    text: 'Veja a localização ao vivo, receba alertas sonoros exclusivos e tenha acesso a recursos como áudio ambiente, detecção de risco com IA e contato rápido com autoridades.',
-  },
-]
+const stepNumbers = ['01', '02', '03']
 
-const features = [
-  { text: 'Leve e confortável de usar', icon: iconFolha },
-  { text: 'Conexão em tempo real com o app', icon: iconPhone },
-  { text: 'Pensado para situações de emergência', icon: iconWarning },
-]
+const featureIcons = [iconFolha, iconPhone, iconWarning]
 
-const appScreens = [
-  { src: phoneMap, alt: 'Tela de localização em tempo real', label: 'Localização em tempo real' },
-  { src: phoneDocuments, alt: 'Tela de documentos e informações', label: 'Documentos e informações' },
-  { src: phoneMockup, alt: 'Tela NFC do Lumina', label: 'NFC' },
-  { src: phoneRights, alt: 'Tela de leis e direitos', label: 'Leis e Direitos' },
-]
+const screenImages = [phoneMap, phoneDocuments, phoneMockup, phoneRights]
 
-const plans = [
+const planStyles = [
   {
-    title: 'Ativação + Dispositivo',
     price: 'R$299,99',
-    priceSuffix: ' à vista',
-    billing: 'ou 12x de R$29,99',
     tone: 'blue',
-    items: [
-      'Dispositivo Lumina',
-      'Assinatura gratuita por 1 ano',
-      'Acesso ao aplicativo completo',
-      'Segurança desde o primeiro dia',
-      'Cobertura para defeitos de fábrica',
-    ],
-    button: 'Entrar na lista',
     buttonClass: 'price-card__button price-card__button--primary',
-    href: 'https://wa.me/5551996511539?text=Ol%C3%A1!%20Acessei%20o%20site%20do%20Lumina%20e%20achei%20a%20proposta%20incr%C3%ADvel.%20Gostaria%20de%20garantir%20minha%20vaga%20na%20lista%20de%20lan%C3%A7amento%20e%20saber%20mais%20detalhes%20sobre%20quando%20o%20dispositivo%20estar%C3%A1%20dispon%C3%ADvel.',
-    target: '_blank',
+    external: true,
   },
   {
-    title: 'Renovação',
     price: 'R$19,99',
-    priceSuffix: '/mês',
-    billing: '',
     tone: 'pink',
-    items: [
-      'Acesso a todas funcionalidades',
-      'Cancele quando quiser',
-      'Renovação simples e automática',
-    ],
-    button: 'Disponível após o primeiro ano',
     buttonClass: 'price-card__button',
-    href: '#precos',
+    external: false,
   },
 ]
 
 const teamMembers = [
   {
     name: 'Giovana Hossein',
-    role: 'UX/UI Designer',
     image: teamGiovana,
-    description: 'Apaixonada por criar soluções que impactam positivamente a vida das pessoas.',
     linkedin: 'https://www.linkedin.com/in/giovanahrebello/',
   },
   {
     name: 'Rodrigo Sandler',
-    role: 'Desenvolvedor',
     image: teamRodrigo,
-    description: 'Especialista em construir dispositivos físicos discretos, eficientes e confortáveis.',
     linkedin: 'https://www.linkedin.com/in/rodrigo-sandler-1945a9220/',
   },
   {
     name: 'Isadora Guerra',
-    role: 'Desenvolvedora',
     image: teamIsadora,
-    description: 'Focado em desenvolver tecnologia acessível, segura e com propósito real.',
     linkedin: 'https://www.linkedin.com/in/isadoraferreiraguerra/',
   },
 ]
@@ -190,6 +132,19 @@ const starData = [
 ]
 
 function App() {
+  const [lang, setLang] = useState(readLang)
+  const t = copy[lang]
+  const waitlistHref = whatsappLink(lang)
+
+  useEffect(() => {
+    storeLang(lang)
+    document.documentElement.lang = t.htmlLang
+    document.title = t.documentTitle
+    document
+      .querySelector('meta[name="description"]')
+      ?.setAttribute('content', t.documentDescription)
+  }, [lang, t])
+
   return (
     <div className="site-shell">
       <div className="shape shape--top-one" aria-hidden />
@@ -221,21 +176,35 @@ function App() {
           <span>Lumina</span>
         </a>
 
-        <nav className="nav-links" aria-label="Navegação principal">
-          {navItems.map((item) => (
+        <nav className="nav-links" aria-label={t.navAriaLabel}>
+          {t.nav.map((item) => (
             <a key={item.href} href={item.href}>
               {item.label}
             </a>
           ))}
         </nav>
 
+        <div className="lang-switch" role="group" aria-label={t.langSwitchLabel}>
+          {LANGS.map((option) => (
+            <button
+              key={option}
+              type="button"
+              className="lang-switch__option"
+              aria-pressed={option === lang}
+              onClick={() => setLang(option)}
+            >
+              {option.toUpperCase()}
+            </button>
+          ))}
+        </div>
+
         <a
           className="pill-button navbar__cta"
-          href="https://wa.me/5551996511539?text=Ol%C3%A1!%20Acessei%20o%20site%20do%20Lumina%20e%20achei%20a%20proposta%20incr%C3%ADvel.%20Gostaria%20de%20garantir%20minha%20vaga%20na%20lista%20de%20lan%C3%A7amento%20e%20saber%20mais%20detalhes%20sobre%20quando%20o%20dispositivo%20estar%C3%A1%20dispon%C3%ADvel."
+          href={waitlistHref}
           target="_blank"
           rel="noopener noreferrer"
         >
-          Entrar na lista
+          {t.ctaWaitlist}
         </a>
       </header>
 
@@ -244,24 +213,26 @@ function App() {
           <div className="section__inner hero__inner">
             <div className="hero__copy">
               <h1>Lumina</h1>
-              <p className="eyebrow">Iluminando caminhos.</p>
-              <p>
-                Uma solução pensada para apoiar responsáveis por pessoas autistas, com mais segurança,
-                autonomia e conexão no dia a dia.
-              </p>
+              <p className="eyebrow">{t.heroEyebrow}</p>
+              <p>{t.heroText}</p>
               <a
                 className="pill-button"
-                href="https://wa.me/5551996511539?text=Ol%C3%A1!%20Acessei%20o%20site%20do%20Lumina%20e%20achei%20a%20proposta%20incr%C3%ADvel.%20Gostaria%20de%20garantir%20minha%20vaga%20na%20lista%20de%20lan%C3%A7amento%20e%20saber%20mais%20detalhes%20sobre%20quando%20o%20dispositivo%20estar%C3%A1%20dispon%C3%ADvel."
+                href={waitlistHref}
                 target="_blank"
                 rel="noopener noreferrer"
               >
-                Entrar na lista
+                {t.ctaWaitlist}
               </a>
             </div>
 
-            <div className="phone-fan" aria-label="Prévia das telas do aplicativo Lumina">
-              {heroPhones.map((phone) => (
-                <img key={phone.className} className={phone.className} src={phone.src} alt={phone.alt} />
+            <div className="phone-fan" aria-label={t.heroPhonesLabel}>
+              {heroPhones.map((phone, index) => (
+                <img
+                  key={phone.className}
+                  className={phone.className}
+                  src={phone.src}
+                  alt={t.heroPhoneAlts[index]}
+                />
               ))}
             </div>
           </div>
@@ -270,22 +241,16 @@ function App() {
         <section className="section about" id="sobre">
           <div className="section__inner">
             <div className="section-heading section-heading--left">
-              <h2>O que é o Lumina?</h2>
-              <p>
-                O Lumina é uma solução que combina um dispositivo físico e um aplicativo para oferecer
-                mais segurança e apoio a pessoas autistas e seus responsáveis.
-              </p>
-              <p>
-                Criado com base em experiências reais, o Lumina ajuda no acompanhamento, na comunicação e
-                na prevenção de situações de risco de forma simples, acessível e confiável.
-              </p>
+              <h2>{t.aboutTitle}</h2>
+              <p>{t.aboutText1}</p>
+              <p>{t.aboutText2}</p>
             </div>
 
             <figure className="quote">
               <img src={luminaLogo} alt="" />
               <blockquote>
-                “Ser sensível é um sinal de força, não de fraqueza.”
-                <span>— Clarice Lispector</span>
+                {t.quote}
+                <span>{t.quoteAuthor}</span>
               </blockquote>
             </figure>
           </div>
@@ -294,18 +259,18 @@ function App() {
         <section className="section how-it-works" id="funcionalidades">
           <div className="section__inner">
             <div className="section-heading">
-              <h2>Como funciona</h2>
+              <h2>{t.stepsTitle}</h2>
             </div>
 
             <div className="steps-grid">
-              {steps.map((step, index) => (
-                <article className="step-card" key={step.number}>
-                  <span className="step-card__number">{step.number}</span>
+              {t.steps.map((step, index) => (
+                <article className="step-card" key={stepNumbers[index]}>
+                  <span className="step-card__number">{stepNumbers[index]}</span>
                   <div>
                     <h3>{step.title}</h3>
                     <p>{step.text}</p>
                   </div>
-                  {index < steps.length - 1 && <span className="step-card__arrow" aria-hidden>→</span>}
+                  {index < t.steps.length - 1 && <span className="step-card__arrow" aria-hidden>&rarr;</span>}
                 </article>
               ))}
             </div>
@@ -315,24 +280,20 @@ function App() {
         <section className="section device-section">
           <div className="section__inner device-grid">
             <div className="device-photo">
-              <img src={luminaDevice} alt="Dispositivo físico Lumina preso à alça de uma mochila" />
+              <img src={luminaDevice} alt={t.deviceAlt} />
             </div>
 
             <div className="device-copy">
-              <span className="soft-badge">Conectado ao app Lumina</span>
-              <h2>Mais segurança, mesmo à distância</h2>
-              <p>
-                Conheça o dispositivo físico que funciona junto com o app Lumina. O dispositivo ilumina
-                acompanha a pessoa em tempo real e se conecta ao app para enviar alertas e permitir ações
-                rápidas em qualquer situação.
-              </p>
+              <span className="soft-badge">{t.deviceBadge}</span>
+              <h2>{t.deviceTitle}</h2>
+              <p>{t.deviceText}</p>
               <ul className="feature-list">
-                {features.map((feature) => (
-                  <li key={feature.text}>
+                {t.features.map((feature, index) => (
+                  <li key={feature}>
                     <div className="feature-icon">
-                      <img src={feature.icon} alt="" />
+                      <img src={featureIcons[index]} alt="" />
                     </div>
-                    {feature.text}
+                    {feature}
                   </li>
                 ))}
               </ul>
@@ -343,55 +304,58 @@ function App() {
         <section className="section app-section">
           <div className="section__inner">
             <div className="section-heading">
-              <h2>Acompanhamento em tempo real</h2>
-              <p>Veja como o app Lumina funciona na prática</p>
+              <h2>{t.appTitle}</h2>
+              <p>{t.appSubtitle}</p>
             </div>
 
             <div className="screens-grid">
-              {appScreens.map((screen) => (
+              {t.appScreens.map((screen, index) => (
                 <figure className="screen-card" key={screen.label}>
-                  <img src={screen.src} alt={screen.alt} />
+                  <img src={screenImages[index]} alt={screen.alt} />
                   <figcaption>{screen.label}</figcaption>
                 </figure>
               ))}
             </div>
 
-            <p className="screen-note">
-              Tudo o que você precisa para acompanhar, proteger e apoiar a criança em um só lugar.
-            </p>
+            <p className="screen-note">{t.screenNote}</p>
           </div>
         </section>
 
         <section className="section pricing-section" id="precos">
           <div className="section__inner">
             <div className="section-heading">
-              <h2>Planos e preços</h2>
+              <h2>{t.pricingTitle}</h2>
             </div>
 
             <div className="pricing-grid">
-              {plans.map((plan) => (
-                <article className={`price-card price-card--${plan.tone}`} key={plan.title}>
-                  <h3>{plan.title}</h3>
-                  <p className="price-card__price">
-                    {plan.price}
-                    <span>{plan.priceSuffix}</span>
-                  </p>
-                  {plan.billing && <p className="price-card__billing">{plan.billing}</p>}
-                  <ul>
-                    {plan.items.map((item) => (
-                      <li key={item}>{item}</li>
-                    ))}
-                  </ul>
-                  <a
-                    href={plan.href}
-                    className={plan.buttonClass}
-                    target={plan.target}
-                    rel={plan.target === '_blank' ? 'noopener noreferrer' : undefined}
-                  >
-                    {plan.button}
-                  </a>
-                </article>
-              ))}
+              {t.plans.map((plan, index) => {
+                const style = planStyles[index]
+                const href = style.external ? waitlistHref : '#precos'
+
+                return (
+                  <article className={`price-card price-card--${style.tone}`} key={plan.title}>
+                    <h3>{plan.title}</h3>
+                    <p className="price-card__price">
+                      {style.price}
+                      <span>{plan.priceSuffix}</span>
+                    </p>
+                    {plan.billing && <p className="price-card__billing">{plan.billing}</p>}
+                    <ul>
+                      {plan.items.map((item) => (
+                        <li key={item}>{item}</li>
+                      ))}
+                    </ul>
+                    <a
+                      href={href}
+                      className={style.buttonClass}
+                      target={style.external ? '_blank' : undefined}
+                      rel={style.external ? 'noopener noreferrer' : undefined}
+                    >
+                      {plan.button}
+                    </a>
+                  </article>
+                )
+              })}
             </div>
           </div>
         </section>
@@ -399,50 +363,44 @@ function App() {
         <section className="section team-section" id="criadores">
           <div className="section__inner">
             <div className="section-heading">
-              <h2>Quem criou o Lumina</h2>
-              <p>
-                O Lumina foi desenvolvido por uma equipe multidisciplinar, unindo tecnologia, design e
-                vivências reais.
-              </p>
+              <h2>{t.teamTitle}</h2>
+              <p>{t.teamText}</p>
             </div>
 
             <div className="team-grid">
-              {teamMembers.map((member) => (
+              {teamMembers.map((member, index) => (
                 <a
                   key={member.name}
                   className="person-card__link"
                   href={member.linkedin}
                   target="_blank"
                   rel="noopener noreferrer"
-                  aria-label={`LinkedIn de ${member.name}`}
+                  aria-label={t.teamLinkedinLabel(member.name)}
                 >
                   <article className="person-card">
                     <img src={member.image} alt={member.name} />
                     <h3>{member.name}</h3>
-                    <p className="person-card__role">{member.role}</p>
-                    <p>{member.description}</p>
+                    <p className="person-card__role">{t.team[index].role}</p>
+                    <p>{t.team[index].description}</p>
                   </article>
                 </a>
               ))}
             </div>
 
-            <blockquote className="closing-quote">
-              “O Lumina nasceu da vontade de criar mais segurança e apoio para crianças autistas e suas
-              famílias, unindo tecnologia e cuidado humano.”
-            </blockquote>
+            <blockquote className="closing-quote">{t.closingQuote}</blockquote>
           </div>
         </section>
 
         <section className="section terms-section" id="termos">
           <div className="section__inner terms-section__inner">
-            <h2>Baixe nossos Termos e Condições</h2>
-            <a href="https://sandlerrodrigo.github.io/lumina-terms-and-conditions/">Link para termos →</a>
+            <h2>{t.termsTitle}</h2>
+            <a href="https://sandlerrodrigo.github.io/lumina-terms-and-conditions/">{t.termsLink}</a>
           </div>
         </section>
       </main>
 
       <footer className="site-footer">
-        <p>&copy; {new Date().getFullYear()} Lumina. Todos os direitos reservados.</p>
+        <p>{t.footer(new Date().getFullYear())}</p>
       </footer>
     </div>
   )
